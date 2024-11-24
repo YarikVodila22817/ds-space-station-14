@@ -196,7 +196,7 @@
 # Since you could open pizza boxes in the stack.
 
 - type: entity
-  parent: BoxCardboard
+  parent: [BoxCardboard, GrenadeBase]
   id: FoodBoxPizza
   name: pizza box
   components:
@@ -231,50 +231,45 @@
     price: 0
 
 - type: entity
-  name: pizza box
-  parent: FoodBoxPizza
-  id: FoodBoxPizzaFilled
-  suffix: Filled
+  parent: GrenadeBase
+  id: BimbaBoxPizza
+  name: pizza boxb
   components:
   - type: Sprite
+    sprite: Objects/Consumable/Food/Baked/pizza.rsi
+    drawdepth: SmallObjects
     layers:
     - state: box
-    - state: box-open
-      map: ["enum.StorageVisualLayers.Door"]
-  - type: StorageFill
-    contents:
-    - id: FoodPizzaArnold
-      prob: 0.15
-      orGroup: Pizza
-    - id: FoodPizzaDank
-      prob: 0.10
-      orGroup: Pizza
-    - id: FoodPizzaSassysage
-      prob: 0.15
-      orGroup: Pizza
-    - id: FoodPizzaMargherita
-      prob: 0.15
-      orGroup: Pizza
-    - id: FoodPizzaMeat
-      prob: 0.15
-      orGroup: Pizza
-    - id: FoodPizzaMushroom
-      prob: 0.15
-      orGroup: Pizza
-    - id: FoodPizzaPineapple
-      prob: 0.15
-      orGroup: Pizza
-    - id: FoodPizzaVegetable
-      prob: 0.15
-      orGroup: Pizza
-    - id: FoodPizzaDonkpocket
-      prob: 0.10
-      orGroup: Pizza
-    - id: FoodPizzaCotton
-      prob: 0.10
-      orGroup: Pizza
-    - id: KnifePlastic
-
+  # TODO make these entitystorage again + placeablesurface after entity storage ECS gets merged.
+  - type: Item
+    sprite: Objects/Consumable/Food/Baked/pizza.rsi
+  - type: Appearance
+  - type: EntityStorageVisuals
+    stateDoorOpen: box-open
+    stateDoorClosed: box
+  - type: StaticPrice
+    price: 0
+  - type: ExplodeOnTrigger
+  - type: Explosive
+    explosionType: Default
+    maxIntensity: 10
+    intensitySlope: 3
+    totalIntensity: 120 # about a ~4 tile radius
+    canCreateVacuum: false
+  - type: OnUseTimerTrigger
+    delay: 10
+    beepSound:
+      path: "/Audio/Effects/beep1.ogg"
+      params:
+        volume: 5
+    initialBeepDelay: 0
+    beepInterval: 2 # 2 beeps total (at 0 and 2)
+  - type: GenericVisualizer
+    visuals:
+      enum.Trigger.TriggerVisuals.VisualState:
+        enum.ConstructionVisuals.Layer:
+          Primed: { state: box-open }
+          Unprimed: { state: box-open }
 # Nugget
 
 - type: entity

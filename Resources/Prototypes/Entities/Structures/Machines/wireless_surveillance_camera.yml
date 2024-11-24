@@ -41,6 +41,38 @@
     mode: SnapgridCenter
 
 - type: entity
+  parent: ClothingScarfBase
+  id: PortableCamera
+  name: Icam
+  description: Icam special for you.
+  components:
+  - type: Sprite
+    sprite: Clothing/Neck/Scarfs/green.rsi
+  - type: Clothing
+    sprite: Clothing/Neck/Scarfs/green.rsi
+  - type: InteractionOutline
+  - type: Eye
+  - type: DeviceNetwork
+    deviceNetId: Wired
+    receiveFrequencyId: SurveillanceCamera
+    transmitFrequencyId: SurveillanceCamera
+  - type: SurveillanceCamera
+    setupAvailableNetworks:
+      - SurveillanceCameraSecurity
+  - type: SurveillanceCameraMicrophone
+    blacklist:
+      components:
+        - SurveillanceCamera
+        - SurveillanceCameraMonitor
+        - RadioSpeaker
+  - type: ActiveListener
+    range: 10
+  - type: UserInterface
+    interfaces:
+      enum.SurveillanceCameraSetupUiKey.Camera:
+        type: SurveillanceCameraSetupBoundUi
+
+- type: entity
   abstract: true
   id: SurveillanceWirelessCameraAnchoredBase
   parent: SurveillanceWirelessCameraBase
